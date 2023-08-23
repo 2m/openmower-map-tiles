@@ -45,5 +45,5 @@ jobs:
             Version=${{ env.REF_NAME }}
             GitCommit=${{ github.sha }}
           tags: |
-            ghcr.io/${{ env.REPO_OWNER }}/openmower-mapeditor:${{ github.sha }}
-            ghcr.io/${{ env.REPO_OWNER }}/openmower-mapeditor:${{ env.REF_NAME }}
+            ghcr.io/${{ env.REPO_OWNER }}/openmower-map-tiles:${{ github.sha }}
+            ghcr.io/${{ env.REPO_OWNER }}/openmower-map-tiles:${{ env.REF_NAME }}

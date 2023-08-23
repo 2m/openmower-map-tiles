@@ -15,14 +15,13 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-    - uses: actions/checkout@v3
-    - uses: extractions/setup-just@v1
+      - uses: actions/checkout@v3
+      - uses: extractions/setup-just@v1
 
-    - name: yaml-lint
-      uses: ibiqlik/action-yamllint@v3
+      - name: yaml-lint
+        uses: ibiqlik/action-yamllint@v3
 
-    - name: shellcheck
-      uses: ludeeus/action-shellcheck@master
+      - name: shellcheck
+        uses: ludeeus/action-shellcheck@master
 
-    - run: just docker-build
-
+      - run: just docker-build
