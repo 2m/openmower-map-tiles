@@ -47,3 +47,5 @@ jobs:
           tags: |
             ghcr.io/${{ env.REPO_OWNER }}/openmower-map-tiles:${{ github.sha }}
             ghcr.io/${{ env.REPO_OWNER }}/openmower-map-tiles:${{ env.REF_NAME }}
+          cache-from: type=registry,ref=ghcr.io/${{ env.REPO_OWNER }}/openmower-map-tiles:main
+          cache-to: type=inline

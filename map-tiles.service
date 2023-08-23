@@ -1,0 +1,30 @@
+[Unit]
+Description=Map Tiles
+Documentation=man:podman-generate-systemd(1)
+Wants=network.target
+After=network-online.target NetworkManager.service
+StartLimitInterval=120
+StartLimitBurst=10
+
+[Service]
+Type=forking
+Restart=always
+RestartSec=15s
+TimeoutStartSec=1h
+TimeoutStopSec=120s
+
+ExecStartPre=/bin/rm -f %t/container-map-tiles.pid %t/container-map-tiles.ctr-id
+
+ExecStart=/usr/bin/podman run \
+  --replace --detach --tty --privileged \
+  --name openmower-map-tiles \
+  --network host \
+  --volume /home/openmower/odm_orthophoto.tif:/tiles/map.tif \
+  ghcr.io/2m/openmower-map-tiles:main
+
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-map-tiles.ctr-id -t 10
+ExecStopPost=/usr/bin/podman rm --ignore --force --cidfile %t/container-map-tiles.ctr-id
+PIDFile=%t/container-map-tiles.pid
+
+[Install]
+WantedBy=multi-user.target default.target
