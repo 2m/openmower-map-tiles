@@ -16,7 +16,9 @@ TimeoutStopSec=120s
 ExecStartPre=/bin/rm -f %t/container-map-tiles.pid %t/container-map-tiles.ctr-id
 
 ExecStart=/usr/bin/podman run \
-  --replace --detach --tty --privileged \
+  --conmon-pidfile %t/container-map-tiles.pid --cidfile %t/container-map-tiles.ctr-id \
+  --cgroups=no-conmon \
+  --replace --detach --tty \
   --name openmower-map-tiles \
   --network host \
   --volume /home/openmower/odm_orthophoto.tif:/tiles/map.tif \

@@ -53,9 +53,11 @@ XYZ tile server is available at `http://localhost:5000/rgb/{z}/{x}/{y}.png?r=red
 
 ## Running on the OpenMower
 
-**TODO:** This is not tested yet.
+Copy the ortophoto file `odm_orthophoto.tif` to the OpenMower:
 
-Copy the ortophoto file `odm_orthophoto.tif` to the OpenMower.
+```bash
+scp odm_orthophoto.tif openmower@openmower.local:
+```
 
 Copy the [`map-tiles.service`][map-tiles-service] file in `/etc/systemd/system/` on your OpenMower. Then enable and start the service:
 
