@@ -67,3 +67,18 @@ sudo systemctl start map-tiles.service
 ```
 
 [map-tiles-service]: ./map-tiles.service
+
+## Using Map Tile server with [openmower-gui][]
+
+Once you have XYZ tile server running on the OpenMower, you can configure [OpenMower GUI][openmower-gui] to use it.
+Open `/etc/systemd/system/gui.service` and add the following lines to the `ExecStart` command:
+
+```bash
+--env MAP_TILE_SERVER=http://localhost:5000 \
+--env MAP_TILE_URI="/tiles/rgb/{z}/{x}/{y}.png?r=red&g=green&b=blue" \
+```
+
+Now open the GUI and you should see custom tiles on the Map page.
+
+[openmower-gui]: https://github.com/cedbossneo/openmower-gui
+

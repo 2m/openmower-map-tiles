@@ -15,13 +15,15 @@ gdalinfo -json map.tif | jq -r '
     map(["\(.key)X=\(.value[0])", "\(.key)Y=\(.value[1])"]) |
     flatten[]'\
   | tee .env
+
+# shellcheck disable=SC1091
 source .env set
 
 gdal_translate -a_ullr \
-  "$(echo "$upperLeftX + $OFFSET_X" | bc -l)" \
-  "$(echo "$upperLeftY + $OFFSET_Y" | bc -l)" \
-  "$(echo "$lowerRightX + $OFFSET_X" | bc -l)" \
-  "$(echo "$lowerRightY + $OFFSET_Y" | bc -l)" \
+  "$(echo "${upperLeftX:?} + $OFFSET_X" | bc -l)" \
+  "$(echo "${upperLeftY:?} + $OFFSET_Y" | bc -l)" \
+  "$(echo "${lowerRightX:?} + $OFFSET_X" | bc -l)" \
+  "$(echo "${lowerRightY:?} + $OFFSET_Y" | bc -l)" \
   map.tif translated.tif
 
 echo "${green}Splitting to separate bands${normal}"
