@@ -85,3 +85,22 @@ Now open the GUI and you should see custom tiles on the Map page.
 [openmower-gui]: https://github.com/cedbossneo/openmower-gui
 [map]:           ./docs/map.png
 
+## Using Map Tile server with Grafana
+
+You can configure OpenMower to [send telemetry data to an external MQTT server][mqtt-server].
+From there, it is quite easy to [setup Home Assistant sensors][home-assistant] and Grafana dashboards to display the data.
+
+Choose `Geomap` panel type and configure it to use the `XYZ Tile Layer` for `Basemap layer`. Use the following URL for `URL Template`:
+
+```bash
+http://<openmower-ip>:5000/rgb/{z}/{x}/{y}.png?r=red&g=green&b=blue
+```
+
+Note that basemap layer will only work when you access Grafana from the same network as the OpenMower. For remote accessing OpenMower, consider installing [Tailscale][tailscale] on it.
+
+![grafana][]
+
+[mqtt-server]:    https://github.com/ClemensElflein/open_mower_ros/blob/main/src/open_mower/config/mower_config.sh.example#L130-L135
+[home-assistant]: https://github.com/2m/hassio-config/blob/ginkunai/packages/openmower.yaml
+[tailscale]:      https://tailscale.com/
+[grafana]:        ./docs/grafana.png
