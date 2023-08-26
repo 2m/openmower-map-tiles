@@ -6,7 +6,7 @@ This repository contains configuration for the [terracotta][] XYZ tile server fo
 
 [terracotta]: https://github.com/DHI-GRAS/terracotta
 [openmower]:  https://openmower.de/
-[demo]:       ./demo.png
+[demo]:       ./docs/demo.png
 
 # Usage
 
@@ -49,7 +49,7 @@ XYZ tile server is available at `http://localhost:5000/rgb/{z}/{x}/{y}.png?r=red
 [map-pilot-pro]:     https://dronesmadeeasy.com/map-pilot
 [qgroundcontrol]:    http://qgroundcontrol.com/
 [odm]:               https://github.com/OpenDroneMap/ODM
-[preview]:           ./preview.png
+[preview]:           ./docs/preview.png
 
 ## Running on the OpenMower
 
@@ -80,5 +80,8 @@ Open `/etc/systemd/system/gui.service` and add the following lines to the `ExecS
 
 Now open the GUI and you should see custom tiles on the Map page.
 
+![map][]
+
 [openmower-gui]: https://github.com/cedbossneo/openmower-gui
+[map]:           ./docs/map.png
 
