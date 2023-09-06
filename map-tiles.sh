@@ -41,8 +41,8 @@ echo "${green}Starting XYZ tile server${normal}"
 terracotta serve --allow-all-ips -r "optimized/{}_{band}.tif" &
 sleep 5
 
-echo "${green}Starting preview server${normal}"
-terracotta connect localhost:5000 &
+echo "${green}Starting preview server that will use tile server on $TILE_SERVER${normal}"
+terracotta connect "$TILE_SERVER" &
 
 # "terracotta connect" listens to localhost
 # this forwards connections from all interfaces to localhost

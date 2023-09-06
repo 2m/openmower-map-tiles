@@ -40,7 +40,7 @@ docker run -ti --rm \
 
 This will split the given TIF file to different color bands (required by `terracotta`) and start both, the tile server and the preview GUI.
 
-Open `http://localhost:5010` and select `alpha` in the Bands list. Then select `rgb` in the `Customize layer` dropdown. Assign R, G and B bands their corresponding values and you should see the map.
+Open preview GUI on `http://localhost:5010` and select `alpha` in the Bands list. Then select `rgb` in the `Customize layer` dropdown. Assign R, G and B bands their corresponding values and you should see the map.
 
 ![preview][]
 
@@ -59,7 +59,15 @@ Copy the ortophoto file `odm_orthophoto.tif` to the OpenMower:
 scp odm_orthophoto.tif openmower@openmower.local:
 ```
 
-Copy the [`map-tiles.service`][map-tiles-service] file in `/etc/systemd/system/` on your OpenMower. Then enable and start the service:
+Copy the [`map-tiles.service`][map-tiles-service] file in `/etc/systemd/system/` on your OpenMower.
+
+If you want to use the preview GUI from the OpenMower, you will have to set the OpenMower IP address in the `ExecStart` command:
+
+```bash
+--env TILE_SERVER="<open-mower-ip>:5000" \
+```
+
+Then enable and start the service:
 
 ```bash
 sudo systemctl enable map-tiles.service

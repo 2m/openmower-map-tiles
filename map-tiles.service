@@ -23,6 +23,7 @@ ExecStart=/usr/bin/podman run \
   --network host \
   --env OFFSET_X=0 \
   --env OFFSET_Y=0 \
+  --env TILE_SERVER="localhost:5000" \
   --volume /home/openmower/odm_orthophoto.tif:/tiles/map.tif \
   ghcr.io/2m/openmower-map-tiles:main
 
