@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd /tiles || exit
-
 # terminal colors
 normal=$'\e[0m'
 bold=$(tput bold)
@@ -37,13 +35,26 @@ gdal_translate -b 4 translated.tif map_alpha.tif
 echo "${green}Optimizing layers${normal}"
 terracotta optimize-rasters map_*.tif -o optimized/
 
-echo "${green}Starting XYZ tile server${normal}"
-terracotta serve --allow-all-ips -r "optimized/{}_{band}.tif" &
-sleep 5
+echo "${green}Ingesting tiles${normal}"
+terracotta ingest "optimized/{}_{band}.tif" -o terracotta.sqlite
 
-echo "${green}Starting preview server that will use tile server on $TILE_SERVER${normal}"
-terracotta connect "$TILE_SERVER" &
+export TERRACOTTA_API_URL="//${TILE_SERVER}:5000"
 
-# "terracotta connect" listens to localhost
-# this forwards connections from all interfaces to localhost
-socat TCP-LISTEN:5010,fork TCP:localhost:5100
+CADDY_TLS_CONFIG=""
+if [[ -n "${CF_API_TOKEN// /}" ]]; then
+    CADDY_TLS_CONFIG=$(cat << EOF
+{env.TILE_SERVER}:5443 {
+	reverse_proxy * unix//tiles/terracotta.sock
+	tls {
+		dns cloudflare {env.CF_API_TOKEN}
+		resolvers 1.1.1.1
+	}
+}
+EOF
+)
+fi
+
+export CADDY_TLS_CONFIG
+
+echo "${green}Running tile and preview servers${normal}"
+procfusion procfusion.toml

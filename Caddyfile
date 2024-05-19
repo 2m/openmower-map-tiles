@@ -1,0 +1,9 @@
+:5000 {
+	reverse_proxy * unix//tiles/terracotta.sock
+}
+
+:5010 {
+	reverse_proxy * unix//tiles/terracotta-preview.sock
+}
+
+{$CADDY_TLS_CONFIG}

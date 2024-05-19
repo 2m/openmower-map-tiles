@@ -1,0 +1,8 @@
+[processes.terracota-server]
+command = "gunicorn --workers 20 --bind unix:terracotta.sock -m 007 terracotta.server.app:app"
+
+[processes.terracota-preview]
+command = "gunicorn --workers 2 --bind unix:terracotta-preview.sock -m 007 terracotta_patch.client_app:client_app"
+
+[processes.caddy]
+command = "caddy run --config Caddyfile"
