@@ -49,6 +49,7 @@ if [[ -n "${CF_API_TOKEN// /}" ]]; then
 		dns cloudflare {env.CF_API_TOKEN}
 		resolvers 1.1.1.1
 	}
+  import cors {header.origin}
 }
 EOF
 )
