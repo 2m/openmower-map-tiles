@@ -40,6 +40,9 @@ terracotta ingest "optimized/{}_{band}.tif" -o terracotta.sqlite
 
 export TERRACOTTA_API_URL="//${TILE_SERVER}:5000"
 
+# all CORS headers are handled by caddy
+export TC_ALLOWED_ORIGINS_METADATA='[]'
+
 CADDY_TLS_CONFIG=""
 if [[ -n "${CF_API_TOKEN// /}" ]]; then
     CADDY_TLS_CONFIG=$(cat << EOF
