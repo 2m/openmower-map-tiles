@@ -31,7 +31,7 @@ After it is done, you should have a `./<dataset-name>/odm_orthophoto/odm_orthoph
 Now you can start the XYZ tile server from this repository:
 
 ```bash
-docker run -ti --rm \
+docker run -it --rm \
   -v <absolute-path-to-odm_orthophoto.tif>:/tiles/map.tif \
   -p 5000:5000 \
   -p 5010:5010 \
@@ -61,11 +61,21 @@ scp odm_orthophoto.tif openmower@openmower.local:
 
 Copy the [`map-tiles.service`][map-tiles-service] file in `/etc/systemd/system/` on your OpenMower.
 
-If you want to use the preview GUI from the OpenMower, you will have to set the OpenMower IP address in the `ExecStart` command:
+If you want to use the Terracotta preview GUI from the OpenMower, you will have to set the OpenMower IP address in the `ExecStart` command:
 
 ```bash
---env TILE_SERVER="<open-mower-ip>:5000" \
+--env TILE_SERVER="<open-mower-ip-or-hostname>" \
 ```
+
+You can also run the tile server with TLS. This is useful if you want to access the tile server from a browser page which was retrieved using TLS as well (e.g. Grafana served via TLS). To do this, add the following environment variables to the `ExecStart` command:
+
+```bash
+--env TILE_SERVER="<open-mower-hostname>" \
+--env CF_API_TOKEN="<cloudflare-api-token>" \
+```
+
+This will use [ACME DNS challenge](dns-challenge) to get a valid certificate. Tile server running under TLS will be available at `https://<open-mower-hostname>:5443`.
+
 
 Then enable and start the service:
 
@@ -75,6 +85,7 @@ sudo systemctl start map-tiles.service
 ```
 
 [map-tiles-service]: ./map-tiles.service
+[dns-challenge]:     https://caddyserver.com/docs/automatic-https#dns-challenge
 
 ## Using Map Tile server with [openmower-gui][]
 
@@ -102,6 +113,12 @@ Choose `Geomap` panel type and configure it to use the `XYZ Tile Layer` for `Bas
 
 ```bash
 http://<openmower-ip>:5000/rgb/{z}/{x}/{y}.png?r=red&g=green&b=blue
+```
+
+Or the following URL if you configured the tile server to use TLS:
+
+```bash
+https://<openmower-hostname>:5443/rgb/{z}/{x}/{y}.png?r=red&g=green&b=blue
 ```
 
 Note that basemap layer will only work when you access Grafana from the same network as the OpenMower. For remote accessing OpenMower, consider installing [Tailscale][tailscale] on it.
