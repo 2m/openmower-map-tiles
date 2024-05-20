@@ -16,9 +16,17 @@
 	}
 }
 
+(cache) {
+	header {
+		Cache-Control "public, max-age=604800, must-revalidate"
+		defer
+	}
+}
+
 :5000 {
 	reverse_proxy * unix//tiles/terracotta.sock
 	import cors {header.origin}
+	import cache
 }
 
 :5010 {

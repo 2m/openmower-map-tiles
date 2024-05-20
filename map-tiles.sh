@@ -53,6 +53,7 @@ if [[ -n "${CF_API_TOKEN// /}" ]]; then
 		resolvers 1.1.1.1
 	}
   import cors {header.origin}
+  import cache
 }
 EOF
 )
