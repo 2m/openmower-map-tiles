@@ -23,6 +23,12 @@
 	}
 }
 
+{
+	# changing from default 80, so it does not interfere
+	# with comitup running on OpenMower
+	http_port 5080
+}
+
 :5000 {
 	reverse_proxy * unix//tiles/terracotta.sock
 	import cors {header.origin}
