@@ -7,7 +7,7 @@ template: |
   $CHANGES
 
 categories:
-  - title: '⬆️ Dependencies'
-    collapse-after: 3
-    labels:
-      - dependencies
+- title: '⬆️ Dependencies'
+  collapse-after: 3
+  labels:
+  - dependencies

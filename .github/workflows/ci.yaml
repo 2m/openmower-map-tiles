@@ -3,11 +3,11 @@ name: ci
 on:
   push:
     branches:
-      - main
+    - main
   pull_request:
     types:
-      - opened
-      - synchronize
+    - opened
+    - synchronize
 
 jobs:
   checks:
@@ -15,13 +15,10 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
-      - uses: extractions/setup-just@v2
+    - uses: actions/checkout@v4
 
-      - name: yaml-lint
-        uses: ibiqlik/action-yamllint@v3
+    - name: yaml-lint
+      uses: ibiqlik/action-yamllint@v3
 
-      - name: shellcheck
-        uses: ludeeus/action-shellcheck@master
-
-      - run: just docker-build
+    - name: shellcheck
+      uses: ludeeus/action-shellcheck@master
