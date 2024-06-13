@@ -43,6 +43,10 @@ ENV TC_DRIVER_PATH="/tiles/terracotta.sqlite"
 # Cloudflare API token for TLS DNS challenge
 ENV CF_API_TOKEN=""
 
+# See https://caddyserver.com/docs/conventions#file-locations for details
+ENV XDG_CONFIG_HOME /config
+ENV XDG_DATA_HOME /data
+
 EXPOSE 5000 5010 5443
 
 CMD ./map-tiles.sh
