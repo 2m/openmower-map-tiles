@@ -25,6 +25,8 @@ ExecStart=/usr/bin/podman run \
   --env OFFSET_Y=0 \
   --env TILE_SERVER="localhost" \
   --volume /home/openmower/odm_orthophoto.tif:/tiles/map.tif \
+  --volume caddy_data:/data \
+  --volume caddy_config:/config \
   ghcr.io/2m/openmower-map-tiles:main
 
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-map-tiles.ctr-id -t 10
