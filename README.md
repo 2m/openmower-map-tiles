@@ -40,9 +40,19 @@ docker run -it --rm \
 
 This will split the given TIF file to different color bands (required by `terracotta`) and start both, the tile server and the preview GUI.
 
+You might see the following warning during tile ingestion:
+
+```
+UserWarning: Raster file /tiles/optimized/map_alpha.tif does not have a valid nodata value, and does not contain an alpha band. No data will be masked.
+```
+
+That is fine. I did not find the reason for this warning, and it does not affect the tile server.
+
 Open preview GUI on `http://localhost:5010` and select `alpha` in the Bands list. Then select `rgb` in the `Customize layer` dropdown. Assign R, G and B bands their corresponding values and you should see the map.
 
 ![preview][]
+
+You can also click the icon on the left that changes the base map to satellite view and see how your map alligns with it. Use `OFFSET_X` and `OFFSET_Y` environment variables to adjust the map if needed. However aligning your map with the satellite view might not be a good idea, since your mower might still be misaligned with both these maps. So better create some mowing zones in OpenMower and then align the map with them in OpenMower GUI.
 
 XYZ tile server is available at `http://localhost:5000/rgb/{z}/{x}/{y}.png?r=red&g=green&b=blue`
 
