@@ -39,7 +39,7 @@ jobs:
         registry: ghcr.io
 
     - name: Build Docker Image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         outputs: "type=registry,push=true"
         provenance: false
