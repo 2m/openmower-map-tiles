@@ -54,12 +54,15 @@ Open preview GUI on `http://localhost:5010` and select `alpha` in the Bands list
 
 You can also click the icon on the left that changes the base map to satellite view and see how your map alligns with it. Use `OFFSET_X` and `OFFSET_Y` environment variables to adjust the map if needed. However aligning your map with the satellite view might not be a good idea, since your mower might still be misaligned with both these maps. So better create some mowing zones in OpenMower and then align the map with them in OpenMower GUI.
 
-XYZ tile server is available at `http://localhost:5000/rgb/{z}/{x}/{y}.png?r=red&g=green&b=blue`
+Use the following tile server URL value with placeholders `http://localhost:5000/rgb/{z}/{x}/{y}.png?r=red&g=green&b=blue` for the tile server configuration in OpenMower GUI or Grafana.
+
+You can also try to manually fetch a single tile to see if it works. First, you need to find out the tile coordinates to use with the server. Go to [What the Quad][what-the-quad], select large zoom level (usually 20) and navigate to a place where you took your ortophoto. You will see Tile Z, X and Y values in the box. Replace the placeholders from above URL with these values and open the URL in your browser. You should see a single tile.
 
 [map-pilot-pro]:     https://dronesmadeeasy.com/map-pilot
 [qgroundcontrol]:    http://qgroundcontrol.com/
 [odm]:               https://github.com/OpenDroneMap/ODM
 [preview]:           ./docs/preview.png
+[what-the-quad]:     https://mvexel.github.io/whatthequad/
 
 ## Running on the OpenMower
 
