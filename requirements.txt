@@ -1,2 +1,2 @@
-terracotta==0.8.5
+terracotta==0.8.6
 gunicorn==23.0.0
