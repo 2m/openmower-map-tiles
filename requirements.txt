@@ -1,2 +1,2 @@
 terracotta==0.10.1
-gunicorn==26.0.0
+gunicorn==26.2.0
